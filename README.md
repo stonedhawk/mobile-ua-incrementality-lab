@@ -10,6 +10,8 @@
 
 ### ▶ Try it live: **[stonedhawk.github.io/mobile-ua-incrementality-lab](https://stonedhawk.github.io/mobile-ua-incrementality-lab/)**
 
+![Lift Lab, designing a test](assets/lift-overview.png)
+
 ---
 
 ## 🎯 Three tools in one
@@ -21,6 +23,8 @@
 **3. Reconcile the numbers.** When you can't run a holdout, your platform, MMP, SKAN, and finance figures disagree wildly. Give each a trust weight and a bias correction and it blends them into one defensible ROAS with a disagreement band, so you stop arguing over which dashboard to believe.
 
 Every stat, metric, and widget has a tooltip explaining the jargon in plain terms, and the full methods are documented inside the tool.
+
+![Reading a test: the posterior, the p-value, and the naive vs incremental gap](assets/lift-read.png)
 
 ---
 
