@@ -167,6 +167,13 @@
     *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
       transition-duration:.001ms!important;scroll-behavior:auto!important}
   }
+  @media(max-width:560px){
+    body{padding:20px 14px}
+    h1{font-size:22px}
+    .tab{min-width:100%}
+    .head{gap:10px}
+    .cards{gap:10px}
+  }
 </style>
 </head>
 <body>
@@ -613,7 +620,8 @@
     var cv=$("recChart");var W=cv.clientWidth;if(W<=0)return;
     var dpr=window.devicePixelRatio||1,H=cv.height;
     cv.width=W*dpr;cv.height=H*dpr;var ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
-    var padL=150,padR=54,xmax=Math.max(hi,blend,100)*1.15;
+    var padL=Math.max(98,Math.min(150,W*0.36)),padR=54,xmax=Math.max(hi,blend,100)*1.15;
+    var maxNameChars=Math.max(10,Math.floor((padL-16)/6.6));
     var X=function(v){return padL+(v/xmax)*(W-padL-padR);};
     var rowH=(H-20)/SOURCES.length;
     ctx.font="12px 'Fira Sans',sans-serif";
@@ -621,7 +629,7 @@
     corr.forEach(function(c,i){
       var y=12+i*rowH, bh=rowH*0.52, by=y+rowH*0.20;
       ctx.fillStyle="#8b93b8";ctx.textAlign="right";ctx.font="12px 'Fira Sans',sans-serif";
-      ctx.fillText(c.name.length>20?c.name.slice(0,19)+"…":c.name,padL-12,y+rowH/2+4);
+      ctx.fillText(c.name.length>maxNameChars?c.name.slice(0,maxNameChars-1)+"…":c.name,padL-12,y+rowH/2+4);
       var g=ctx.createLinearGradient(padL,0,X(c.v),0);g.addColorStop(0,"rgba(122,162,247,.55)");g.addColorStop(1,"#7aa2f7");
       ctx.fillStyle=g;rr(ctx,padL,by,Math.max(2,X(c.v)-padL),bh,5);ctx.fill();
       ctx.fillStyle="#e7eaf6";ctx.textAlign="left";ctx.font="600 12px 'Fira Code',monospace";
