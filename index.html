@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lift Lab — Incrementality Test Designer, Reader & Reconciler</title>
-<meta name="description" content="Design and read incrementality / lift tests for mobile UA, and reconcile conflicting attribution numbers into one defensible figure. Dependency-free, runs in the browser." />
+<title>Lift Lab: Incrementality Test Designer, Reader & Reconciler</title>
+<meta name="description" content="Design and read incrementality / lift tests for mobile UA, and blend conflicting ROAS figures into one trust-weighted number. Dependency-free, runs in the browser." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -181,7 +181,7 @@
   <div class="head">
     <div>
       <h1><span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#9ab4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 8.5V2"/><path d="M8.5 2h7"/><path d="M7 15.5h10"/></svg></span> Lift Lab</h1>
-      <p class="sub">Design incrementality tests, read the results honestly, and reconcile the conflicting numbers your platforms, MMP, and finance team all report. Built for post-ATT mobile UA, where last-click attribution quietly lies.</p>
+      <p class="sub">Size a holdout test, read its result, compare naive ROAS with incremental ROAS, and blend the conflicting ROAS figures your platforms, MMP, and finance team report into one trust-weighted number.</p>
     </div>
     <a class="badge-link" href="https://stonedhawk.github.io/mobile-ltv-roas-modeler/" target="_blank"><span class="dot"></span> Part of the UA suite · LTV Modeler</a>
   </div>
@@ -214,7 +214,7 @@
           </div>
         </div>
 
-        <label>Minimum detectable effect — MDE (% relative lift)<span class="info" tabindex="0" data-tip="mde">i</span></label>
+        <label>Minimum detectable effect, MDE (% relative lift)<span class="info" tabindex="0" data-tip="mde">i</span></label>
         <input id="dMDE" type="number" value="10" step="1">
 
         <div class="row2">
@@ -233,15 +233,15 @@
     <div>
       <div id="dVerdict"></div>
       <div class="cards">
-        <div class="card blue"><div class="k">Per arm<span class="info" tabindex="0" data-tip="perarm">i</span></div><div id="dPer" class="v blue">—</div></div>
-        <div class="card cyan"><div class="k">Total sample</div><div id="dTot" class="v">—</div></div>
-        <div class="card purple"><div class="k">Duration</div><div id="dDur" class="v purple">—</div></div>
-        <div class="card"><div class="k">Detectable?</div><div id="dFeas" class="v">—</div></div>
+        <div class="card blue"><div class="k">Per arm<span class="info" tabindex="0" data-tip="perarm">i</span></div><div id="dPer" class="v blue">-</div></div>
+        <div class="card cyan"><div class="k">Total sample</div><div id="dTot" class="v">-</div></div>
+        <div class="card purple"><div class="k">Duration</div><div id="dDur" class="v purple">-</div></div>
+        <div class="card"><div class="k">Detectable?</div><div id="dFeas" class="v">-</div></div>
       </div>
       <div class="panel chartbox">
         <h3>How test length trades against the lift you can detect</h3>
         <canvas id="dChart" height="252"></canvas>
-        <div class="hint">Smaller lifts need exponentially more traffic. The dashed line marks your current MDE.</div>
+        <div class="hint">Required traffic scales with 1/MDE²: halving the lift roughly quadruples it. The dashed line marks your current MDE.</div>
       </div>
       <div class="panel">
         <h2>Plain English</h2>
@@ -300,10 +300,10 @@
     <div>
       <div id="rVerdict"></div>
       <div class="cards">
-        <div class="card blue"><div class="k">Observed lift<span class="info" tabindex="0" data-tip="lift">i</span></div><div id="rLift" class="v blue">—</div></div>
-        <div class="card"><div class="k">p-value<span class="info" tabindex="0" data-tip="pvalue">i</span></div><div id="rP" class="v">—</div></div>
-        <div class="card purple"><div class="k">P(test better)<span class="info" tabindex="0" data-tip="bayes">i</span></div><div id="rBayes" class="v purple">—</div></div>
-        <div class="card"><div class="k">iROAS<span class="info" tabindex="0" data-tip="iroas">i</span></div><div id="rIroas" class="v">—</div></div>
+        <div class="card blue"><div class="k">Observed lift<span class="info" tabindex="0" data-tip="lift">i</span></div><div id="rLift" class="v blue">-</div></div>
+        <div class="card"><div class="k">p-value<span class="info" tabindex="0" data-tip="pvalue">i</span></div><div id="rP" class="v">-</div></div>
+        <div class="card purple"><div class="k">P(test better)<span class="info" tabindex="0" data-tip="bayes">i</span></div><div id="rBayes" class="v purple">-</div></div>
+        <div class="card"><div class="k">iROAS<span class="info" tabindex="0" data-tip="iroas">i</span></div><div id="rIroas" class="v">-</div></div>
       </div>
       <div class="panel chartbox">
         <h3>Posterior of the true relative lift<span class="info" tabindex="0" data-tip="posterior">i</span></h3>
@@ -337,9 +337,9 @@
     </div>
     <div>
       <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-        <div class="card green"><div class="k">Reconciled ROAS<span class="info" tabindex="0" data-tip="reconciled">i</span></div><div id="recBlend" class="v green">—</div></div>
-        <div class="card yellow"><div class="k">Disagreement band<span class="info" tabindex="0" data-tip="band">i</span></div><div id="recBand" class="v yellow">—</div></div>
-        <div class="card"><div class="k">Verdict</div><div id="recState" class="v" style="font-size:16px">—</div></div>
+        <div class="card green"><div class="k">Reconciled ROAS<span class="info" tabindex="0" data-tip="reconciled">i</span></div><div id="recBlend" class="v green">-</div></div>
+        <div class="card yellow"><div class="k">Disagreement band<span class="info" tabindex="0" data-tip="band">i</span></div><div id="recBand" class="v yellow">-</div></div>
+        <div class="card"><div class="k">Verdict</div><div id="recState" class="v" style="font-size:16px">-</div></div>
       </div>
       <div class="panel chartbox">
         <h3>Each source, bias-corrected, vs the reconciled estimate</h3>
@@ -354,19 +354,19 @@
   </section>
 
   <details>
-    <summary>Methods &amp; assumptions — how every number here is computed</summary>
+    <summary>Methods &amp; assumptions: how every number here is computed</summary>
     <div class="body">
       <p><b>Sample size (proportions).</b> Two-proportion normal approximation: <code>n = (z₁₋α/2·√(2·p̄(1-p̄)) + z₁₋β·√(p₁(1-p₁)+p₂(1-p₂)))² / (p₂-p₁)²</code>, where p₂ = p₁·(1+MDE). Unequal splits inflate the total by <code>1/(4·s·(1-s))</code>.</p>
       <p><b>Sample size (revenue).</b> <code>n/arm = 2·(z₁₋α/2+z₁₋β)²·CV²/MDE²</code>. Revenue is heavily skewed, so the coefficient of variation (CV) does the heavy lifting; CV of 3-6 is typical for mobile ARPU.</p>
-      <p><b>Reading a test (proportions).</b> Lift = rate_test − rate_control. Standard error <code>√(p_c(1-p_c)/n_c + p_t(1-p_t)/n_t)</code>, a two-sided z gives the p-value, and ±1.96·SE gives the 95% confidence interval.</p>
-      <p><b>Bayesian readout.</b> Each arm's true rate gets a <code>Beta(conv+1, non-conv+1)</code> posterior. We draw 8,000 Monte-Carlo samples to get the probability the test arm is genuinely better and the credible interval of the lift. This is what stays useful when traffic is too thin for a clean p-value.</p>
+      <p><b>Reading a test (proportions).</b> Lift = rate_test − rate_control. Standard error <code>√(p_c(1-p_c)/n_c + p_t(1-p_t)/n_t)</code>, and a two-sided z gives the p-value. The selected confidence level sets the significance bar.</p>
+      <p><b>Bayesian readout.</b> Each arm's true rate gets a <code>Beta(conv+1, non-conv+1)</code> posterior. We draw 8,000 Monte-Carlo samples to get the probability the test arm is genuinely better and the credible interval of the lift. This is what stays useful when traffic is too thin for a clean p-value. Revenue tests use a normal approximation instead: P(better) = Φ(diff/SE), and the chart samples 4,000 normal draws.</p>
       <p><b>Incremental economics.</b> Incremental conversions = (rate_test − rate_control)·n_test, i.e. only the conversions the ads actually caused. <code>iCPI = spend / incremental conversions</code>; <code>iROAS = incremental revenue / spend</code>. The naive version counts every exposed conversion as caused, which is the over-counting the platforms bank on.</p>
-      <p><b>Reconciliation.</b> Each source is bias-corrected (value ÷ bias) then combined as a trust-weighted average: <code>Σ(corrected·weight)/Σ(weight)</code>. The band is the spread of corrected values. It's an opinion with structure, not a measurement.</p>
+      <p><b>Reconciliation.</b> Each source is bias-corrected (value ÷ bias) then combined as a trust-weighted average: <code>Σ(corrected·weight)/Σ(weight)</code>. The band runs from the lowest to the highest corrected value. It's an opinion with structure, not a measurement.</p>
       <p style="color:var(--yellow)"><b>The honest limit.</b> A calculator designs and reads tests; it can't run a clean holdout for you, and a contaminated split produces confident nonsense. At very low spend, no test can detect realistic lifts. The tool will tell you when you're in that zone instead of pretending otherwise.</p>
     </div>
   </details>
 
-  <p class="foot">Single file, no dependencies, nothing leaves the browser. A companion to the <a href="https://stonedhawk.github.io/mobile-ltv-roas-modeler/">LTV &amp; ROAS Modeler</a> — model the LTV, measure the incrementality, trust one number.</p>
+  <p class="foot">Single file, no JavaScript libraries, and nothing you enter leaves the browser. A companion to the <a href="https://stonedhawk.github.io/mobile-ltv-roas-modeler/">LTV &amp; ROAS Modeler</a>.</p>
 </div>
 
 <script>
@@ -394,7 +394,7 @@
     iroas:"<b>Incremental ROAS.</b> Revenue the ads actually <i>caused</i>, divided by spend. The honest version of ROAS. Often far lower than the platform's self-reported number.",
     posterior:"<b>Posterior distribution.</b> The full range of plausible true lifts given your data, not just a single point. A wide curve means you don't have enough data to be sure yet.",
     overcount:"<b>Naive vs incremental.</b> Naive counts every exposed conversion as caused by the ad. Incremental counts only the lift over the holdout. The ratio is how much the platform over-credits itself.",
-    reconcile:"<b>Reconcile.</b> When you can't run a holdout, your platform, MMP and finance numbers disagree wildly. This blends them into one defensible figure so you stop arguing over dashboards.",
+    reconcile:"<b>Reconcile.</b> When you can't run a holdout, your platform, MMP and finance numbers disagree wildly. This blends them into one trust-weighted figure.",
     srcval:"<b>Reported value.</b> The ROAS each source claims for the same campaign. They rarely agree.",
     trust:"<b>Trust weight (0-100).</b> How much you believe this source. Finance/actuals usually highest; a self-attributing ad platform usually lowest.",
     bias:"<b>Bias factor.</b> Known over-reporting multiplier. A platform that claims 1.3× the conversions it really drives gets a bias of 1.3, and the tool divides its value down.",
@@ -569,7 +569,7 @@
       $("rIncr").innerHTML=
         line("Incremental conversions (caused by ads)",Math.round(incConv).toString())+
         line("Naive CPI (counts every conversion)",money(naiveCPI))+
-        line("Incremental CPI — the real cost",money(iCPI),iCPI>naiveCPI*3?"red":"")+
+        line("Incremental CPI (the real cost)",money(iCPI),iCPI>naiveCPI*3?"red":"")+
         line("Platform would claim ROAS of",(naiveROAS*100).toFixed(0)+"%","yellow")+
         line("True incremental ROAS",(iroas*100).toFixed(0)+"%",iroas>=1?"green":"red")+
         line("Over-counting multiple",over.toFixed(1)+"×","yellow");
@@ -611,7 +611,7 @@
     var vals=corr.map(function(c){return c.v;});
     var lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals);
     $("recBlend").textContent=blend.toFixed(0)+"%";
-    $("recBand").textContent=lo.toFixed(0)+"–"+hi.toFixed(0)+"%";
+    $("recBand").textContent=lo.toFixed(0)+" to "+hi.toFixed(0)+"%";
     var spread=hi-lo;
     var st=$("recState");
     if(blend>=100&&lo>=90){st.textContent="Profitable";st.className="v green";}
@@ -639,7 +639,7 @@
     ctx.strokeStyle="#9ece6a";ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.shadowColor="#9ece6a";ctx.shadowBlur=8;
     ctx.beginPath();ctx.moveTo(X(blend),4);ctx.lineTo(X(blend),H-16);ctx.stroke();ctx.shadowBlur=0;ctx.setLineDash([]);
     ctx.fillStyle="#9ece6a";ctx.textAlign="center";ctx.font="600 11px 'Fira Code',monospace";ctx.fillText("blend "+blend.toFixed(0)+"%",X(blend),H-3);
-    $("recPlain").innerHTML="Your sources disagree across a <b>"+spread.toFixed(0)+"-point</b> range ("+lo.toFixed(0)+"% to "+hi.toFixed(0)+"%). Trust-weighted and bias-corrected, the defensible number is <b>"+blend.toFixed(0)+"% ROAS</b>. "+(spread>40?"That spread is wide enough that you should really run a holdout before betting budget on it.":"The sources roughly agree, so this blend is reasonably safe to act on.");
+    $("recPlain").innerHTML="Your sources disagree across a <b>"+spread.toFixed(0)+"-point</b> range ("+lo.toFixed(0)+"% to "+hi.toFixed(0)+"%). Trust-weighted and bias-corrected, the blended number is <b>"+blend.toFixed(0)+"% ROAS</b>. "+(spread>40?"That spread is wide enough that you should really run a holdout before betting budget on it.":"The sources roughly agree, so this blend is reasonably safe to act on.");
   }
 
   function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
