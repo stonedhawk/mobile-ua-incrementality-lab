@@ -451,10 +451,20 @@
   // ---------- chart ----------
   function rr(ctx,x,y,w,h,r){r=Math.min(r,h/2,w/2);ctx.beginPath();
     ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  // Size the backing store to the canvas's CSS box at the current devicePixelRatio and return a
+  // context in CSS pixels, or null while the canvas is hidden. After the first call cv.height is
+  // the backing store in device pixels, not the CSS height, so the height attribute's value is
+  // kept and pinned in CSS. Otherwise every redraw at devicePixelRatio>1 multiplies the height by dpr.
+  function fitCanvas(cv){
+    if(!cv.dataset.cssH){cv.dataset.cssH=cv.height;cv.style.height=cv.height+"px";}
+    var dpr=window.devicePixelRatio||1,W=cv.clientWidth,H=+cv.dataset.cssH;
+    if(W<=0)return null;
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);var ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+    return {ctx:ctx,W:W,H:H};
+  }
   function drawChart(cv,o){
-    var dpr=window.devicePixelRatio||1,W=cv.clientWidth,H=cv.height;
-    if(W<=0)return;
-    cv.width=W*dpr;cv.height=H*dpr;var ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+    var f=fitCanvas(cv);if(!f)return;
+    var ctx=f.ctx,W=f.W,H=f.H;
     var pad={l:54,r:16,t:14,b:28},pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
     var xmin=o.xmin||0,xmax=o.xmax,ymax=o.ymax;
     var X=function(x){return pad.l+(x-xmin)/(xmax-xmin)*pw;},Y=function(y){return pad.t+ph-y/ymax*ph;};
@@ -617,9 +627,8 @@
     if(blend>=100&&lo>=90){st.textContent="Profitable";st.className="v green";}
     else if(blend>=100){st.textContent="Likely OK";st.className="v yellow";}
     else{st.textContent="Underwater";st.className="v red";}
-    var cv=$("recChart");var W=cv.clientWidth;if(W<=0)return;
-    var dpr=window.devicePixelRatio||1,H=cv.height;
-    cv.width=W*dpr;cv.height=H*dpr;var ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+    var f=fitCanvas($("recChart"));if(!f)return;
+    var ctx=f.ctx,W=f.W,H=f.H;
     var padL=Math.max(98,Math.min(150,W*0.36)),padR=54,xmax=Math.max(hi,blend,100)*1.15;
     var maxNameChars=Math.max(10,Math.floor((padL-16)/6.6));
     var X=function(v){return padL+(v/xmax)*(W-padL-padR);};
